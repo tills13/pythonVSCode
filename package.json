@@ -23,7 +23,7 @@
     "theme": "dark"
   },
   "engines": {
-    "vscode": "^1.6.0"
+    "vscode": "^1.7.0"
   },
   "keywords": [
     "python",
@@ -53,9 +53,6 @@
     "onCommand:python.selectAndDebugTestMethod",
     "onCommand:python.runFailedTests",
     "onCommand:python.execSelectionInTerminal",
-    "onCommand:jupyter.runSelectionLine",
-    "onCommand:jupyter.execCurrentCell",
-    "onCommand:jupyter.execCurrentCellAndAdvance",
     "onCommand:python.displayHelp",
     "onCommand:python.buildWorkspaceSymbols",
     "onCommand:python.updateSparkLibrary"
@@ -89,13 +86,6 @@
       {
         "language": "python",
         "path": "./snippets/python.json"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "jupyter.runSelectionLine",
-        "key": "ctrl+alt+enter",
-        "when": "editorFocus && !replaceActive && !searchViewletVisible && !findWidgetVisible"
       }
     ],
     "commands": [
@@ -173,31 +163,6 @@
         "command": "python.execSelectionInTerminal",
         "title": "Run Selection in Python Terminal",
         "category": "Python"
-      },
-      {
-        "command": "jupyter.runSelectionLine",
-        "title": "Run Selection/Line",
-        "category": "Jupyter"
-      },
-      {
-        "command": "jupyter:execCurrentCell",
-        "title": "Run Cell",
-        "category": "Jupyter"
-      },
-      {
-        "command": "jupyter:execCurrentCellAndAdvance",
-        "title": "Run Cell and Advance",
-        "category": "Jupyter"
-      },
-      {
-        "command": "jupyter:gotToPreviousCell",
-        "title": "Go to Previous Cell",
-        "category": "Jupyter"
-      },
-      {
-        "command": "jupyter:gotToNextCell",
-        "title": "Go to Next Cell",
-        "category": "Jupyter"
       },
       {
         "command": "python.displayHelp",
