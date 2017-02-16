@@ -2,9 +2,9 @@
 
 import * as vscode from 'vscode';
 import * as path from 'path';
-import {BaseFormatter} from './../formatters/baseFormatter';
-import {YapfFormatter} from './../formatters/yapfFormatter';
-import {AutoPep8Formatter} from './../formatters/autoPep8Formatter';
+import { BaseFormatter } from './../formatters/baseFormatter';
+import { YapfFormatter } from './../formatters/yapfFormatter';
+import { AutoPep8Formatter } from './../formatters/autoPep8Formatter';
 import * as settings from './../common/configSettings';
 import * as telemetryHelper from '../common/telemetry';
 import * as telemetryContracts from '../common/telemetryContracts';

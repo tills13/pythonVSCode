@@ -27,9 +27,9 @@ export class JupyterClientAdapter extends EventEmitter implements IJupyterClient
 
     public dispose() {
         try {
-            if (this.process){
+            if (this.process) {
                 this.process.stdin.write(this.lastStartedKernelUUID ? this.lastStartedKernelUUID : '');
-                this.process.stdin.write('\n'); 
+                this.process.stdin.write('\n');
             }
         }
         catch (ex) {
@@ -83,7 +83,7 @@ export class JupyterClientAdapter extends EventEmitter implements IJupyterClient
                     return;
                 }
                 this.outputChannel.append(data);
-            });            
+            });
             this.process.stderr.on('data', (data: string) => {
                 this.outputChannel.append(data);
             });
@@ -101,7 +101,7 @@ export class JupyterClientAdapter extends EventEmitter implements IJupyterClient
                     // Ok everything has started, now test ping
                     const msg1 = 'Hello world from Type Script - Функция проверки ИНН и КПП - 长城!1';
                     const msg2 = 'Hello world from Type Script - Функция проверки ИНН и КПП - 长城!2';
-                    Promise.all<string>([this.ipythonAdapter.ping(msg1), this.ipythonAdapter.ping(msg2)]).then(msgs => {
+                    Promise.all<string | string[]>([this.ipythonAdapter.ping(msg1), this.ipythonAdapter.ping(msg2)]).then(msgs => {
                         if (msgs.indexOf(msg1) === -1 || msgs.indexOf(msg2) === -1) {
                             def.reject('msg1 or msg2 not returned');
                         }
@@ -133,15 +133,15 @@ export class JupyterClientAdapter extends EventEmitter implements IJupyterClient
             this.outputChannel.appendLine('Error received: ' + error);
         });
         this.ipythonAdapter.on('commanderror', (commandError: { command: string, id: string, trace: string }) => {
-            this.outputChannel.appendLine(`Unhandled command Error from Jupyter. '${JSON.stringify(commandError)}'`);
+            this.outputChannel.appendLine(`Unhandled command Error from Jupyter. '${ JSON.stringify(commandError) }'`);
         });
         this.ipythonAdapter.on('iopubmessagepareerror', (error, jsonResult) => {
             const errorToLog = formatErrorForLogging(error);
-            this.outputChannel.appendLine(`Error in handling IO message. ${errorToLog}, JSON Message = ${jsonResult}`);
+            this.outputChannel.appendLine(`Error in handling IO message. ${ errorToLog }, JSON Message = ${ jsonResult }`);
         });
         this.ipythonAdapter.on('shellmessagepareerror', (error, jsonResult) => {
             const errorToLog = formatErrorForLogging(error);
-            this.outputChannel.appendLine(`Error in handling Shell message. ${errorToLog}, JSON Message = ${jsonResult}`);
+            this.outputChannel.appendLine(`Error in handling Shell message. ${ errorToLog }, JSON Message = ${ jsonResult }`);
         });
         return this.socketServer.Start();
     }

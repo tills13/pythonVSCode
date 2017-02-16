@@ -15,7 +15,7 @@ export class WorkspaceSymbolProvider implements vscode.WorkspaceSymbolProvider {
         if (!pythonSettings.workspaceSymbols.enabled) {
             return Promise.resolve([]);
         }
-        return fsExistsAsync(pythonSettings.workspaceSymbols.tagFilePath).then(exits => {
+        return fsExistsAsync(pythonSettings.workspaceSymbols.tagFilePath).then((exits): Promise<vscode.SymbolInformation[]> => {
             let def = createDeferred<any>();
             if (exits) {
                 def.resolve();

@@ -792,8 +792,9 @@
         "python.formatting.provider": {
           "type": "string",
           "default": "autopep8",
-          "description": "Provider for formatting. Possible options include 'autopep8' and 'yapf'.",
+          "description": "Provider for formatting. Possible options include 'off', 'autopep8' and 'yapf'.",
           "enum": [
+            "off",
             "autopep8",
             "yapf"
           ]

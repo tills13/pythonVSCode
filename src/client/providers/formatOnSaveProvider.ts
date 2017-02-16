@@ -27,8 +27,10 @@ export function activateFormatOnSaveProvider(languageFilter: vscode.DocumentFilt
         }
         let textEditor = vscode.window.activeTextEditor;
         let editorConfig = vscode.workspace.getConfiguration('editor');
+        /* the global setting does not matter here ... */
         const globalEditorFormatOnSave = editorConfig && editorConfig.has('formatOnSave') && editorConfig.get('formatOnSave') === true;
-        if ((pythonSettings.formatting.formatOnSave || globalEditorFormatOnSave) && textEditor.document === document) {
+        const pythonFormatOnSave = pythonSettings.formatting.formatOnSave && pythonSettings.formatting.provider !== 'off';
+        if ((pythonFormatOnSave && globalEditorFormatOnSave) && textEditor.document === document) {
             let formatter = formatters.get(pythonSettings.formatting.provider);
             telemetryHelper.sendTelemetryEvent(telemetryContracts.IDE.Format, { Format_Provider: formatter.Id, Format_OnSave: "true" });
             e.waitUntil(formatter.formatDocument(document, null, null));

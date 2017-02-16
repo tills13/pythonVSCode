@@ -90,7 +90,7 @@ export class KernelManagerImpl extends EventEmitter {
 
     public startKernel(kernelSpec: KernelspecMetadata, language: string): Promise<Kernel> {
         this.destroyRunningKernelFor(language);
-        return this.jupyterClient.startKernel(kernelSpec).then((kernelInfo: [string, any, string]) => {
+        return this.jupyterClient.startKernel(kernelSpec).then((kernelInfo: [string, any, string]): Promise<Kernel> => {
             const kernelUUID = kernelInfo[0];
             const config = kernelInfo[1];
             const connectionFile = kernelInfo[2];

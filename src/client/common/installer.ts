@@ -97,15 +97,16 @@ export class Installer {
         const installOption = 'Install ' + productName;
         const disableOption = 'Disable this ' + productType;
         const alternateFormatter = product === Product.autopep8 ? 'yapf' : 'autopep8';
-        const useOtherFormatter = `Use '${alternateFormatter}' formatter`;
+        const useOtherFormatter = `Use '${ alternateFormatter }' formatter`;
+        const disableFormatting = `Disable formatting`;
         const options = [];
         if (Formatters.indexOf(product) === -1) {
             options.push(...[installOption, disableOption]);
         }
         else {
-            options.push(...[installOption, useOtherFormatter]);
+            options.push(...[installOption, useOtherFormatter, disableFormatting]);
         }
-        return vscode.window.showErrorMessage(`${productType} ${productName} is not installed`, ...options).then(item => {
+        return vscode.window.showErrorMessage(`${ productType } ${ productName } is not installed`, ...options).then(item => {
             switch (item) {
                 case installOption: {
                     return this.installProduct(product);
@@ -123,6 +124,10 @@ export class Installer {
                 case useOtherFormatter: {
                     const pythonConfig = vscode.workspace.getConfiguration('python');
                     return pythonConfig.update('formatting.provider', alternateFormatter);
+                }
+                case disableFormatting: {
+                    const pythonConfig = vscode.workspace.getConfiguration('python');
+                    return pythonConfig.update('formatting.provider', 'off');
                 }
                 case 'Help': {
                     return Promise.resolve();
@@ -155,10 +160,10 @@ export class Installer {
             let installScript = installArgs.join(' ');
             if (installArgs[0] === '-m') {
                 if (pythonPath.indexOf(' ') >= 0) {
-                    installScript = `"${pythonPath}" ${installScript}`;
+                    installScript = `"${ pythonPath }" ${ installScript }`;
                 }
                 else {
-                    installScript = `${pythonPath} ${installScript}`;
+                    installScript = `${ pythonPath } ${ installScript }`;
                 }
             }
             Installer.terminal.sendText(installScript);
